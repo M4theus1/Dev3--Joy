@@ -1,0 +1,17 @@
+DELIMITER //
+
+CREATE TRIGGER after_item_pedido_insert
+AFTER INSERT ON ItensPedido
+FOR EACH ROW
+BEGIN
+    -- Atualiza o estoque do produto
+    UPDATE Produtos 
+    SET Estoque = Estoque - NEW.Quantidade
+    WHERE ProdutoID = NEW.ProdutoID;
+    
+    -- Registra a ação na tabela de auditoria
+    INSERT INTO AuditoriaEstoque (ProdutoID, Acao, Quantidade, Usuario)
+    VALUES (NEW.ProdutoID, 'VENDA', NEW.Quantidade, CURRENT_USER());
+END//
+
+DELIMITER ;
