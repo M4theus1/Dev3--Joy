@@ -1,0 +1,13 @@
+-- Inserindo um cliente
+INSERT INTO Clientes (Nome, Email) VALUES ('João Silva', 'joao@email.com');
+
+-- Inserindo um produto
+INSERT INTO Produtos (Nome, Preco, Estoque, Categoria) 
+VALUES ('Smartphone XYZ', 1999.99, 50, 'Eletrônicos');
+
+-- Criando um pedido
+INSERT INTO Pedidos (ClienteID) VALUES (1);
+
+-- Inserindo um item no pedido (isso deve acionar o trigger)
+INSERT INTO ItensPedido (PedidoID, ProdutoID, Quantidade, PrecoUnitario)
+VALUES (1, 1, 2, 1999.99);
